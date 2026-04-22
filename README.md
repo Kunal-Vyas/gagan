@@ -30,5 +30,8 @@ From these mechanisms, physical phenomena arise without being encoded directly:
 
 ## Getting Started
 
-- [CONCEPTS.md](./docs/CONCEPTS.md) — Full framework definition: mechanisms, field phenomena, analysis patterns, and a four-dimensional spacetime implementation.
+- [CONCEPTS.md](./docs/CONCEPTS.md) — Full framework definition: mechanisms, field phenomena, analysis patterns, and extending the model.
+- [1D-HEAT-ROD.md](./docs/1D-HEAT-ROD.md) — A one-dimensional heat conduction rod implementation demonstrating thermal diffusion, boundary reflection, equilibrium, and damping.
 - [2D-MEMBRANE.md](./docs/2D-MEMBRANE.md) — A two-dimensional elastic membrane implementation demonstrating wave propagation, interference, mode coupling, and boundary effects.
+- [3D-ACOUSTICS.md](./docs/3D-ACOUSTICS.md) — A three-dimensional elastic solid acoustics implementation demonstrating P-wave and S-wave propagation, mode conversion, shear splitting, and scattering in heterogeneous media.
+- [4D-SPACETIME.md](./docs/4D-SPACETIME.md) — A four-dimensional spacetime implementation demonstrating spatial presence, causal interaction, mode coupling, scattering, and vacuum collapse.

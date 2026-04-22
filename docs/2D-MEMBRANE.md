@@ -138,7 +138,7 @@ The edges of the outer matrix define the membrane boundary. Boundary behavior si
 
 | Boundary Type   | Description                                                              |
 |-----------------|--------------------------------------------------------------------------|
-| Fixed           | Edge points cannot be created. Displacement energy at edges is absorbed (reflected as inversion). |
+| Fixed           | Edge points cannot be created. Displacement energy at edges reflects inward (with or without inversion). |
 | Free            | Edge points can expand outward via creation rules. Energy reflects without inversion. |
 | Periodic        | The field wraps around — opposite edges are treated as adjacent. No edge effects. |
 | Absorbing       | Edge points in the `[[0, 0]]` state for consecutive steps are removed. Energy leaves the membrane. |
@@ -190,7 +190,7 @@ Steps: 100
 
 ## Stochastic Evolution
 
-At each evolution step, every element of every constituent matrix is randomly assigned `0` or `1`. This stochastic process models thermal noise — random perturbations that exist in any real physical membrane.
+At each evolution step, every element of every constituent matrix is randomly assigned `0` or `1`. This stochastic process models environmental noise — random perturbations that exist in any real physical membrane.
 
 The evolution loop:
 
@@ -312,7 +312,25 @@ Field after step 2:
   (1,1): [[1, 1]]ᵘ
 ```
 
-The membrane has collapsed to a single point — the energy at the center could not propagate fast enough to sustain the lattice under absorbing boundary conditions. This illustrates how boundary dissipation can dominate over stochastic re-excitation in small membranes.
+The membrane has collapsed to a single point — the energy at the center could not propagate fast enough to sustain the lattice under absorbing boundary conditions.
+
+### Step 3 — Stochastic Assignment
+
+```text
+  (1,1): [[0, 0]]ᵘ
+```
+
+**Interaction check:** (1,1) has no neighbors — no interactions to evaluate.
+
+**Removal check:** (1,1) is now `[[0, 0]]` for 1 consecutive step. With no active neighbors, it will be removed once the threshold M = 2 is met.
+
+Field after step 3:
+
+```text
+  (1,1): [[0, 0]]ᵘ
+```
+
+The single remaining point has gone to rest. On the next step, if it remains `[[0, 0]]`, it will be removed via edge dissipation — the membrane will cease to exist entirely. This illustrates how boundary dissipation can dominate over stochastic re-excitation in small membranes: the center energy could not propagate fast enough to sustain the lattice, and the absorbing boundary steadily consumed all inactive points.
 
 ---
 
@@ -364,7 +382,7 @@ In periodic boundary conditions with biased stochastic evolution, certain field 
 
 The basic membrane implementation can be extended in several directions:
 
-- **Biased stochastic generation** — Instead of uniform 50/50, set the probability of `V = 1` based on the neighbor's value in the same dimension. For example, if a neighbor has `u = 1`, set `P(u = 1) = 0.7` for the current point. This simulates elastic coupling and produces coherent wave propagation instead of pure thermal noise.
+- **Biased stochastic generation** — Instead of uniform 50/50, set the probability of `V = 1` based on the neighbor's value in the same dimension. For example, if a neighbor has `u = 1`, set `P(u = 1) = 0.7` for the current point. This simulates elastic coupling and produces coherent wave propagation instead of pure stochastic noise.
 
 - **Coupling strength parameter** — Introduce a parameter λ ∈ [0, 1] that controls the neighbor influence bias. λ = 0 is pure stochastic; λ = 1 is fully deterministic (a neighbor's value is always copied). Intermediate values produce varying degrees of wave coherence.
 
