@@ -8,8 +8,8 @@ A matrix is a rectangular array of numbers that maps naturally to computational 
 
 ## How Does It Work?
 
-Gagan provides a framework for initiating field analysis with predefined initial conditions, then evolving the system through stochastic processes. This enables unrestricted exploration of property evolution and the emergence of resulting patterns. The details on how Gagan represents a field are [documented here](./docs/CONCEPTS.md).
+Gagan provides a framework for initiating field analysis with predefined initial conditions, then evolving the system through stochastic processes. This enables unrestricted exploration of property evolution and the emergence of resulting patterns.
 
 ## Getting Started
 
-A sample implementation modeling four-dimensional spacetime is available [here](./docs/implementations/4D-SPACETIME.md).
+The framework concepts and a spacetime implementation example are documented in [CONCEPTS.md](./docs/CONCEPTS.md).
