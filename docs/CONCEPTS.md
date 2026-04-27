@@ -4,6 +4,7 @@ Gagan represents any field as a matrix of matrices. Each inner matrix — called
 
 - [1D Heat Rod](./1D-HEAT-ROD.md) — heat conduction along a one-dimensional rod
 - [2D Elastic Membrane](./2D-MEMBRANE.md) — wave mechanics on a vibrating surface
+- [3D Acoustics](./3D-ACOUSTICS.md) — elastic wave propagation in a three-dimensional solid
 - [4D Spacetime](./4D-SPACETIME.md) — spatial presence and causal structure in discretized spacetime
 
 ---
@@ -18,6 +19,7 @@ Every constituent matrix has the same number of elements as the number of dimens
 
 - A one-dimensional field with a single constituent: `[[1]]`
 - A point in a two-dimensional field: `[[1, 0]]`
+- A point in a three-dimensional field: `[[0, 1, 0]]`
 - A point in a four-dimensional field: `[[0, 1, 0, 0]]`
 
 ### Value Semantics
@@ -27,6 +29,7 @@ Each element in a constituent matrix holds a binary value — either `0` or `1`.
 Value semantics are domain-specific. For example:
 - In a heat rod, `0` = ambient temperature, `1` = thermally excited
 - In a membrane, `0` = at equilibrium, `1` = displaced
+- In acoustics, `0` = undisturbed medium, `1` = wave-active
 - In spacetime, `0` = absent along that dimension, `1` = present
 
 See the individual implementation documents for their value semantics definitions.
@@ -57,7 +60,7 @@ Example — a 3×3 two-dimensional field (nine points):
 | (2, 1)   | `[[0, 0]]`    | At rest                          |
 | (2, 2)   | `[[1, 0]]`    | Displaced along first axis only  |
 
-See [2D-MEMBRANE.md](./2D-MEMBRANE.md#field-representation) and [4D-SPACETIME.md](./4D-SPACETIME.md#field-representation) for additional field representation examples.
+See [2D-MEMBRANE.md](./2D-MEMBRANE.md#field-representation), [3D-ACOUSTICS.md](./3D-ACOUSTICS.md#field-representation), and [4D-SPACETIME.md](./4D-SPACETIME.md#field-representation) for additional field representation examples.
 
 ---
 
@@ -78,7 +81,7 @@ The values remain the same; only the configuration label changes.
 
 A one-dimensional field has only one configuration — all constituents share it, and configuration mismatches are impossible. A four-dimensional field has four configurations, enabling rich interaction dynamics. See the [Dimensionality Effects](#dimensionality-effects) section for a comparison.
 
-See [2D-MEMBRANE.md](./2D-MEMBRANE.md#configurations) and [4D-SPACETIME.md](./4D-SPACETIME.md#configurations) for configuration tables with domain-specific interpretations.
+See [2D-MEMBRANE.md](./2D-MEMBRANE.md#configurations), [3D-ACOUSTICS.md](./3D-ACOUSTICS.md#configurations), and [4D-SPACETIME.md](./4D-SPACETIME.md#configurations) for configuration tables with domain-specific interpretations.
 
 ### Interaction Rules
 
@@ -98,6 +101,7 @@ The four canonical interaction cases:
 See individual implementation documents for their specific rule sets:
 - [1D-HEAT-ROD.md](./1D-HEAT-ROD.md#interaction-rules) — simplified rules (equilibrium + coherent propagation only)
 - [2D-MEMBRANE.md](./2D-MEMBRANE.md#interaction-rules) — full rule set with mode coupling and scattering
+- [3D-ACOUSTICS.md](./3D-ACOUSTICS.md#interaction-rules) — extended rule set with mode conversion and shear splitting
 - [4D-SPACETIME.md](./4D-SPACETIME.md#interaction-rules) — extended rule set with spatial–temporal causal interaction
 
 ---
@@ -138,6 +142,7 @@ The edges of the outer matrix define the field boundary. Boundary conditions gov
 See individual implementation documents for boundary type interpretations in each physical domain:
 - [1D-HEAT-ROD.md](./1D-HEAT-ROD.md#boundary-conditions) — insulated, expanding, ring, and open rod ends
 - [2D-MEMBRANE.md](./2D-MEMBRANE.md#boundary-conditions) — membrane edge behaviors
+- [3D-ACOUSTICS.md](./3D-ACOUSTICS.md#boundary-conditions) — solid medium boundary behaviors
 - [4D-SPACETIME.md](./4D-SPACETIME.md#boundary-conditions) — bounded region, expanding universe, closed topology, causal horizon
 
 ---
@@ -203,7 +208,7 @@ Creation rules are domain-specific. Common patterns:
 - **Activity-driven expansion** — A boundary constituent with active values in certain dimensions triggers creation of new constituents in empty outward positions.
 - **Sustained pressure expansion** — A boundary constituent that has been active for more than K consecutive steps causes creation in all empty outward positions.
 
-See [1D-HEAT-ROD.md](./1D-HEAT-ROD.md#creation-free-boundary), [2D-MEMBRANE.md](./2D-MEMBRANE.md#creation-free-boundary), and [4D-SPACETIME.md](./4D-SPACETIME.md#creation-free-boundary) for domain-specific creation rules.
+See [1D-HEAT-ROD.md](./1D-HEAT-ROD.md#creation-free-boundary), [2D-MEMBRANE.md](./2D-MEMBRANE.md#creation-free-boundary), [3D-ACOUSTICS.md](./3D-ACOUSTICS.md#creation-free-boundary), and [4D-SPACETIME.md](./4D-SPACETIME.md#creation-free-boundary) for domain-specific creation rules.
 
 ### Removal
 
@@ -215,7 +220,7 @@ Removal rules are domain-specific. Common patterns:
 
 Fixed and periodic boundaries do not trigger creation or removal — the field size remains constant throughout evolution.
 
-See [1D-HEAT-ROD.md](./1D-HEAT-ROD.md#removal-absorbing-boundary), [2D-MEMBRANE.md](./2D-MEMBRANE.md#removal-absorbing-boundary), and [4D-SPACETIME.md](./4D-SPACETIME.md#removal-absorbing-boundary) for domain-specific removal rules.
+See [1D-HEAT-ROD.md](./1D-HEAT-ROD.md#removal-absorbing-boundary), [2D-MEMBRANE.md](./2D-MEMBRANE.md#removal-absorbing-boundary), [3D-ACOUSTICS.md](./3D-ACOUSTICS.md#removal-absorbing-boundary), and [4D-SPACETIME.md](./4D-SPACETIME.md#removal-absorbing-boundary) for domain-specific removal rules.
 
 ---
 
